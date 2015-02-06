@@ -1,12 +1,12 @@
-describe Hare::Subscription do
+describe Kanina::Subscription do
   describe '.subscribe' do
     it 'watches a queue' do
       result = nil
-      Hare::Subscription.subscribe queue: 'subscription.test.queue' do |data|
+      Kanina::Subscription.subscribe queue: 'subscription.test.queue' do |data|
         result = data[:string]
       end
 
-      Hare::Server.channel.default_exchange.publish(
+      Kanina::Server.channel.default_exchange.publish(
         { string: 'success' }.to_json,
         routing_key: 'subscription.test.queue'
       )
@@ -19,19 +19,19 @@ describe Hare::Subscription do
       result = nil
 
       # The queue must exist first before we send messages to it.
-      Hare::Subscription.create_queue('subscription.test.durablequeue', durable: true)
+      Kanina::Subscription.create_queue('subscription.test.durablequeue', durable: true)
 
       # Push the message
-      Hare::Server.channel.default_exchange.publish(
+      Kanina::Server.channel.default_exchange.publish(
         { string: 'success' }.to_json,
         routing_key: 'subscription.test.durablequeue'
       )
 
-      Hare::Server.stop
-      Hare::Server.start
+      Kanina::Server.stop
+      Kanina::Server.start
 
       # Re-open the subscription to the queue
-      Hare::Subscription.subscribe queue: 'subscription.test.durablequeue', durable: true do |data|
+      Kanina::Subscription.subscribe queue: 'subscription.test.durablequeue', durable: true do |data|
         result = data[:string]
       end
 
@@ -41,10 +41,10 @@ describe Hare::Subscription do
 
     it 'sets up a binding to a named exchange' do
       result = nil
-      Hare::Subscription.subscribe bind: 'named_exchange' do |data|
+      Kanina::Subscription.subscribe bind: 'named_exchange' do |data|
         result = data[:string]
       end
-      Hare::Server.channel.direct('named_exchange').publish(
+      Kanina::Server.channel.direct('named_exchange').publish(
         { string: 'success' }.to_json
       )
 

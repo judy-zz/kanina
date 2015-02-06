@@ -1,10 +1,10 @@
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 
-require 'hare/version'
+require 'kanina/version'
 
 Gem::Specification.new do |s|
-  s.name          = 'hare'
-  s.version       = Hare::VERSION
+  s.name          = 'kanina'
+  s.version       = Kanina::VERSION
   s.authors       = ['Clinton Judy']
   s.email         = ['clinton@j-udy.com']
   s.summary       = 'Rails plugin for RabbitMQ'
@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
 This is a Rails plugin that makes it easier for your models
 to communicate via AMQP to RabbitMQ.
 DESC
-  s.homepage      = 'https://github.com/judy/hare'
+  s.homepage      = 'https://github.com/judy/kanina'
   s.license       = 'ISC'
 
   s.files         = `git ls-files -z`.split("\x0")

@@ -1,7 +1,7 @@
 require 'rails/generators'
 
-module Hare
-  # <tt>Hare::MessageGenerator</tt> generates a template of a message file. Change the
+module Kanina
+  # <tt>Kanina::MessageGenerator</tt> generates a template of a message file. Change the
   # resulting file with your intended exchange or routing_key information. For example:
   #
   #   rails generate message user_notification

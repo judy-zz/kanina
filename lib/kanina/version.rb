@@ -1,3 +1,3 @@
-module Hare
+module Kanina
   VERSION = '0.6.0'
 end

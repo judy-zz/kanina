@@ -1,11 +1,11 @@
-module Hare
-  # <tt>Hare::Server</tt> loads configuration, opens a connection to RabbitMQ
+module Kanina
+  # <tt>Kanina::Server</tt> loads configuration, opens a connection to RabbitMQ
   # and opens a channel so messages can be received and sent. This class is
   # automatically called and handled by a Railtie, so you shouldn't have to
   # invoke it by hand.
   class Server
     class << self
-      include Hare::Logger
+      include Kanina::Logger
 
       attr_reader :connection, :channel
       attr_accessor :config, :loud

@@ -1,9 +1,9 @@
-module Hare
-  # `Hare::Message` allows you to send messages to RabbitMQ, and have
+module Kanina
+  # `Kanina::Message` allows you to send messages to RabbitMQ, and have
   # your exchanges and bindings set up on the fly.
   #
   #     # app/messages/user_message.rb
-  #     class UserMessage < Hare::Message
+  #     class UserMessage < Kanina::Message
   #       exchange "user.exchange"
   #     end
   #
@@ -11,13 +11,13 @@ module Hare
   #     message.deliver
   #
   # Messages are encapsulated in JSON format. If you use
-  # `Hare::Subscription` to receive messages, they're automatically
+  # `Kanina::Subscription` to receive messages, they're automatically
   # parsed back out of JSON into native Ruby objects.
   class Message
     class << self
-      # Helper method to return the channel opened by `Hare::Server`.
+      # Helper method to return the channel opened by `Kanina::Server`.
       def channel
-        Hare::Server.channel or fail 'Hare::Server.channel is not open'
+        Kanina::Server.channel or fail 'Kanina::Server.channel is not open'
       end
 
       # @overload exchange
@@ -78,7 +78,7 @@ module Hare
       # the queue already exists, it must exist with the same parameters (like durability),
       # or the Bunny gem is very unhappy.
       def verify_queue(routing_key)
-        Hare::Server.channel.queue(routing_key)
+        Kanina::Server.channel.queue(routing_key)
       end
     end
 

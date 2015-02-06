@@ -1,9 +1,9 @@
-describe Hare::Logger do
+describe Kanina::Logger do
   class DummyClass; end
 
   before(:each) do
     @dummy_class = DummyClass.new
-    @dummy_class.extend(Hare::Logger)
+    @dummy_class.extend(Kanina::Logger)
   end
 
   describe "#say" do

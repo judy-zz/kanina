@@ -1,16 +1,16 @@
-require 'hare'
+require 'kanina'
 require 'rails'
 
-module Hare
+module Kanina
   # This Railtie starts a connection to RabbitMQ, and eagerly loads messages
   # and subscriptions so they have time to create the necessary AMQP
   # structures.
   class Railtie < Rails::Railtie
-    initializer 'hare' do
-      Hare::Server.start
+    initializer 'kanina' do
+      Kanina::Server.start
 
       connection_attempts = 1
-      while Hare::Server.status != 'started' && connection_attempts <= 5
+      while Kanina::Server.status != 'started' && connection_attempts <= 5
         sleep(connection_attempts) # Progressively sleep longer between connection attempts.
         connection_attempts = connection_attempts + 1
       end

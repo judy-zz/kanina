@@ -8,7 +8,7 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
-require "hare"
+require "kanina"
 
 module Dummy
   class Application < Rails::Application

@@ -1,6 +1,6 @@
-describe Hare::Server do
+describe Kanina::Server do
   before do
-    @server = Class.new(Hare::Server)
+    @server = Class.new(Kanina::Server)
     @server.config = { host: 'localhost' }
   end
   describe '.status' do

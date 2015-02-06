@@ -1,7 +1,7 @@
 require 'rails/generators'
 
-module Hare
-  # <tt>Hare::SubscriptionGenerator</tt> generates a subscription file, for
+module Kanina
+  # <tt>Kanina::SubscriptionGenerator</tt> generates a subscription file, for
   # example:
   #
   #   rails generate subscription user_notification

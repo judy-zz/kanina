@@ -1,0 +1,8 @@
+Description:
+    This generator installs a config file so Kanina knows how to connect to RabbitMQ.
+
+Example:
+    rails generate kanina
+
+    This will create:
+        config/amqp.yml

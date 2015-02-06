@@ -19,7 +19,7 @@ Coveralls.wear!
 # This loads the dummy Rails environment.
 require File.expand_path('../dummy/config/environment', __FILE__)
 
-require 'hare'
+require 'kanina'
 require 'timecop'
 
 RSpec.configure do |config|
@@ -44,4 +44,4 @@ RSpec.configure do |config|
   end
 end
 
-Hare::Server.start
+Kanina::Server.start
