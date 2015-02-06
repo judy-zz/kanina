@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Kanina : RabbitMQ on Rails">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Kanina</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/judy/kanina">View on GitHub</a>
+
+          <h1 id="project_title">Kanina</h1>
+          <h2 id="project_tagline">RabbitMQ on Rails</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/judy/kanina/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/judy/kanina/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p><a href="http://badge.fury.io/rb/kanina"><img src="https://badge.fury.io/rb/kanina.svg" alt="Gem Version"></a>
+<a href="https://travis-ci.org/judy/kanina"><img src="https://travis-ci.org/judy/kanina.svg?branch=master" alt="Build Status"></a>
+<a href="https://codeclimate.com/github/judy/kanina"><img src="https://codeclimate.com/github/judy/kanina.png" alt="Code Climate"></a>
+<a href="https://coveralls.io/r/judy/kanina"><img src="https://coveralls.io/repos/judy/kanina/badge.png" alt="Coverage Status"></a>
+<a href="http://inch-ci.org/github/judy/kanina"><img src="http://inch-ci.org/github/judy/kanina.png?branch=master" alt="Inline docs"></a></p>
+
+<p>Kanina is a Rails plugin that makes it easier for your models to communicate with RabbitMQ. It abstracts away queue and exchange creation, so you can focus on the message and subscription side of things in Rails.</p>
+
+<h2>
+<a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prerequisites</h2>
+
+<p>You'll need <strong>RabbitMQ</strong> installed. Find instructions for your platform <a href="http://www.rabbitmq.com/download.html">here</a>.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Put this in your <code>Gemfile</code>:</p>
+
+<pre><code>gem 'kanina'
+</code></pre>
+
+<p>Then run <code>bundle install</code> to install the gem and its dependencies. Finally, run <code>rails generate kanina:install</code> to create bin/kanina and an amqp.yml.sample file in your config folder.</p>
+
+<p>Copy amqp.yml.sample to amqp.yml, and change it to connect to your local RabbitMQ server. By default, it will connect to the one on your development machine, as long as you haven't changed the settings on it.</p>
+
+<h2>
+<a id="sending-messages" class="anchor" href="#sending-messages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sending Messages</h2>
+
+<p>Run the generator:</p>
+
+<pre><code>rails generate kanina:message MessageName
+</code></pre>
+
+<p>Then specify the name of the exchange, OR the routing key for the intended queue. To send a message, generate an instance of your new class, add data, and hit send:</p>
+
+<pre><code>msg = MessageName.new
+msg.data = {key: "value"}
+msg.deliver
+</code></pre>
+
+<p>You can also specify the type of exchange you want to create, like so:</p>
+
+<pre><code>class WeatherMessage &lt; Kanina::Message
+    fanout "reports"
+end
+</code></pre>
+
+<p>Remember to use <a href="http://www.rabbitmq.com/documentation.html">RabbitMQ's documentation</a> to understand the rules governing how to use different types of exchanges, bindings, and queues appropriately. You don't have to create those things ahead of time with Kanina, but you do have to understand how they work!</p>
+
+<h2>
+<a id="receiving-messages" class="anchor" href="#receiving-messages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Receiving messages</h2>
+
+<p>Generate a subscription with this command:</p>
+
+<pre><code>rails generate kanina:subscription SubscriptionName
+</code></pre>
+
+<p>Then tweak the resulting file to attach to the right queue, or use bindings to watch a named exchange. Use a subscribe block to define code that you want run when a message is received:</p>
+
+<pre><code>class NotifyUserSubscription &lt; Kanina::Subscription
+  subscribe queue: "notify_user" do |data|
+    User.where(id: data[:id]).first.notify
+  end
+end
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Kanina maintained by <a href="https://github.com/judy">judy</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-11853441-7");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
