@@ -30,6 +30,7 @@ atlassian-ide-plugin.xml
 
 # Ignore, this being a gem.
 Gemfile.lock
+*.gem
 
 # Docs
 .yardoc
