@@ -16,6 +16,10 @@ end
 require 'coveralls'
 Coveralls.wear!
 
+# Send code coverage to Code Climate
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 # This loads the dummy Rails environment.
 require File.expand_path('../dummy/config/environment', __FILE__)
 

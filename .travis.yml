@@ -10,3 +10,7 @@ branches:
 
 services:
   - rabbitmq
+
+addons:
+  code_climate:
+    repo_token: 6077a1780583dcf9415ffb34dc8f8fb3b9821e84699eb3b03590017773e70640
