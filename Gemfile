@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'coveralls', require: nil
-gem 'codeclimate-test-reporter', group: :test, require: nil
+gem 'coveralls', require: false
+gem 'codeclimate-test-reporter', group: :test, require: false
 
 platforms :rbx do
   gem 'racc'

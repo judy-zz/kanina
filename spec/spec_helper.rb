@@ -1,5 +1,9 @@
 ENV['RAILS_ENV'] ||= 'test'
 
+# Coveralls for online code coverage generation.
+require 'coveralls'
+Coveralls.wear!
+
 # SimpleCov for offline code coverage generation.
 require 'simplecov'
 original_process = Process.pid
@@ -11,10 +15,6 @@ end
 SimpleCov.at_exit do
   SimpleCov.result.format! if Process.pid == original_process
 end
-
-# Coveralls for online code coverage generation.
-require 'coveralls'
-Coveralls.wear!
 
 # Send code coverage to Code Climate
 require "codeclimate-test-reporter"
