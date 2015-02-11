@@ -1,6 +1,7 @@
 require 'rails/generators'
 
 module Kanina
+  # `Kanina::InstallGenerator` handles installing Kanina into a Rails project.
   class InstallGenerator < Rails::Generators::Base
     source_root File.expand_path('../templates', __FILE__)
 

@@ -1,10 +1,13 @@
 require 'rails/generators'
 
 module Kanina
-  # <tt>Kanina::MessageGenerator</tt> generates a template of a message file. Change the
+  # `Kanina::MessageGenerator` generates a template of a message file. Change the
   # resulting file with your intended exchange or routing_key information. For example:
   #
   #   rails generate message user_notification
+  #
+  # Then you'll want to update the generated message class with instructions on
+  # which exchange to send messages, the type of exchange, and so on.
   class MessageGenerator < Rails::Generators::NamedBase
     source_root File.expand_path('../templates', __FILE__)
 
