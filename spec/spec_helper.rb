@@ -1,9 +1,5 @@
 ENV['RAILS_ENV'] ||= 'test'
 
-# Coveralls for online code coverage generation.
-require 'coveralls'
-Coveralls.wear!
-
 # SimpleCov for offline code coverage generation.
 require 'simplecov'
 original_process = Process.pid

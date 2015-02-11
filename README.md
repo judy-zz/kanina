@@ -6,8 +6,8 @@ A Rails plugin that makes it easier for your models to communicate with RabbitMQ
 [![Gem Version](https://badge.fury.io/rb/kanina.svg)](http://badge.fury.io/rb/kanina)
 [![Build Status](https://travis-ci.org/judy/kanina.svg?branch=master)](https://travis-ci.org/judy/kanina)
 [![Code Climate](https://codeclimate.com/github/judy/kanina.png)](https://codeclimate.com/github/judy/kanina)
-[![Coverage Status](https://coveralls.io/repos/judy/kanina/badge.svg)](https://coveralls.io/r/judy/kanina)
 [![Inline docs](http://inch-ci.org/github/judy/kanina.png?branch=master)](http://inch-ci.org/github/judy/kanina)
+[![API Documentation](https://www.omniref.com/ruby/gems/kanina.png)](https://www.omniref.com/ruby/gems/kanina)
 
 Kanina abstracts away queue and exchange creation, so you can focus on the message and subscription side of things in Rails.
 
