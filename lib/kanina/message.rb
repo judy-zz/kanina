@@ -15,7 +15,8 @@ module Kanina
   # parsed back out of JSON into native Ruby objects.
   class Message
     class << self
-      # Helper method to return the channel opened by `Kanina::Server`.
+      # Helper method to return the channel that Kanina::Server is talking on.
+      # @return [Bunny::Channel]
       def channel
         Kanina::Server.channel or fail 'Kanina::Server.channel is not open'
       end

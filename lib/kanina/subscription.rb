@@ -22,7 +22,7 @@ module Kanina
       # Helper method to return the channel that Kanina::Server is talking on.
       # @return [Bunny::Channel]
       def channel
-        Kanina::Server.channel
+        Kanina::Server.channel or fail 'Kanina::Server.channel is not open'
       end
 
       # Begins subscribing to the specified queue (or binds to an exchange and
