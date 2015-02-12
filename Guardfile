@@ -4,6 +4,8 @@ guard :rspec, cmd: 'bundle exec rspec' do
   watch('spec/spec_helper.rb')  { 'spec' }
 end
 
-guard 'yard', port: '8808' do
-  watch(%r{lib/.+\.rb})
-end
+# # TODO: Uncomment this to regenerate docs locally, AFTER Yardoc is fixed
+# # post-Ruby 2.2.0
+# guard 'yard', port: '8808' do
+#   watch(%r{lib/.+\.rb})
+# end
