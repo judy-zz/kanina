@@ -49,7 +49,7 @@ module Kanina
       end
 
       def config_file_location
-        Rails.root + 'config/amqp.yml'
+        (Rails.try(:root) || './') + 'config/amqp.yml'
       end
 
       def load_config
