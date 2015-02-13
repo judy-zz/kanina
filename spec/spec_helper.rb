@@ -5,7 +5,7 @@ require 'simplecov'
 original_process = Process.pid
 
 SimpleCov.start do
-  add_filter 'spec/dummy'
+  add_filter 'spec'
 end
 
 SimpleCov.at_exit do
