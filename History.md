@@ -1,6 +1,18 @@
 Changelog
 =========
 
+v0.6.1
+------
+- Complete project rename! Once "Hare", now called "Kanina".
+  - "Kanina" means "Bunny" in Icelandic and "a while ago" in Tagalog. More importantly, it was available on Rubygems...
+- Ruby 2.2.0 support.
+- Mark an exchange as durable.
+- More and better documentation.
+- Better coverage.
+- Tweak integration with Inch & Code Climate
+- Stop using Coveralls, since it was conflicting, and I'm now sending coverage to Code Climate anyway.
+- Renamed exchanges and queues in specs, so all Kanina output is namespaced.
+
 v0.6.0
 ------
 - Mark individual messages as persistent or transient.
