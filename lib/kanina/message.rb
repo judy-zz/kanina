@@ -26,12 +26,11 @@ module Kanina
       # @overload exchange(name, *opts)
       #   Set the name and type of the exchange messages should be sent to.
       #   @param name [String] the name of the exchange
-      #   @param type [:direct, :fanout, :topic] the type of exchange
       #   @return [String] the exchange
-      def exchange(name = nil, type: :direct)
+      def exchange(name = nil, type: :direct, durable: false)
         if name.present?
           @type = type
-          @exchange = channel.exchange(name, type: type)
+          @exchange = channel.exchange(name, type: type, durable: durable)
         else
           @exchange || channel.default_exchange
         end

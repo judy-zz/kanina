@@ -2,24 +2,33 @@ describe Kanina::Message do
   describe '.exchange' do
     it 'sets and returns the exchange' do
       dummy_class = Class.new(Kanina::Message) do
-        exchange 'test', type: :direct
+        exchange 'kanina.message_spec.exchange', type: :direct
       end
-      expect(dummy_class.exchange.name).to eql 'test'
+      expect(dummy_class.exchange.name).to eql 'kanina.message_spec.exchange'
       expect(dummy_class.exchange.type).to eql :direct
     end
+
     it "returns the default exchange if exchange hasn't been set." do
       dummy_class = Class.new(Kanina::Message)
       expect(dummy_class.exchange.name).to eql ''
       expect(dummy_class.exchange.type).to eql :direct
+    end
+
+    it 'makes a durable exchange' do
+      dummy_class = Class.new(Kanina::Message) do
+        exchange 'kanina.message_spec.durable_exchange', durable: :true
+      end
+
+      expect(`rabbitmqctl list_exchanges name durable`).to include("kanina.message_spec.durable_exchange\ttrue")
     end
   end
 
   describe '.routing_key' do
     it 'sets and returns the routing_key variable' do
       dummy_class = Class.new(Kanina::Message) do
-        routing_key 'test'
+        routing_key 'kanina.message_spec.routing_key'
       end
-      expect(dummy_class.routing_key).to eql 'test'
+      expect(dummy_class.routing_key).to eql 'kanina.message_spec.routing_key'
     end
   end
 
