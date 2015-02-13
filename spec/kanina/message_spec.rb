@@ -68,10 +68,10 @@ describe Kanina::Message do
 
     it 'delivers a message to the default exchange' do
       dummy_class = Class.new(Kanina::Message) do
-        routing_key 'testkey'
+        routing_key 'kanina.message_spec.default_exchange_to_queue'
       end
 
-      q = Kanina::Server.channel.queue('testkey')
+      q = Kanina::Server.channel.queue('kanina.message_spec.default_exchange_to_queue')
       message = dummy_class.new('test')
       result = nil
       message.deliver
@@ -86,11 +86,11 @@ describe Kanina::Message do
 
     it 'delivers a message to a fanout exchange' do
       dummy_class = Class.new(Kanina::Message) do
-        fanout 'fanning_out'
+        fanout 'kanina.message_spec.fanout_exchange'
       end
 
       q = Kanina::Server.channel.queue('')
-      q.bind('fanning_out')
+      q.bind('kanina.message_spec.fanout_exchange')
       message = dummy_class.new('data')
       message.deliver
       result = nil
@@ -103,13 +103,13 @@ describe Kanina::Message do
       expect(result).to eql('"data"')
     end
 
-    it 'delivers a message to a named exchange' do
+    it 'delivers a message to a direct exchange' do
       dummy_class = Class.new(Kanina::Message) do
-        exchange 'direct-test-exchange', type: :direct
+        exchange 'kanina.message_spec.direct_exchange', type: :direct
       end
 
       q = Kanina::Server.channel.queue('')
-      q.bind('direct-test-exchange')
+      q.bind('kanina.message_spec.direct_exchange')
       message = dummy_class.new('data')
       message.deliver
       result = nil
@@ -124,8 +124,8 @@ describe Kanina::Message do
     context "with a topic exchange" do
       before(:each) do
         @dummy_class = Class.new(Kanina::Message) do
-          topic "topic_exchange"
-          routing_key "prefix.middle.suffix"
+          topic "kanina.message_spec.topic_exchange"
+          routing_key "kanina.message_spec.topic_exchange.suffix"
         end
         @q = Kanina::Server.channel.queue('')
         @ex = @dummy_class.class_eval{exchange}
@@ -140,24 +140,24 @@ describe Kanina::Message do
       end
 
       it "should match a full topic" do
-        @q.bind @ex, routing_key: "prefix.middle.suffix"
+        @q.bind @ex, routing_key: "kanina.message_spec.topic_exchange.suffix"
       end
 
       it "should match a prefix" do
-        @q.bind @ex, routing_key: "prefix.#"
+        @q.bind @ex, routing_key: "kanina.message_spec.topic_exchange.#"
       end
 
       it "should match a suffix" do
-        @q.bind @ex, routing_key: "#.suffix"
+        @q.bind @ex, routing_key: "#.topic_exchange.suffix"
       end
     end
 
     context 'with persistence turned on' do
       it 'should make messages persistent' do
-        Kanina::Server.channel.queue('persistentqueue', durable: true)
+        Kanina::Server.channel.queue('kanina.message_spec.persistent_messages', durable: true)
 
         dummy_class = Class.new(Kanina::Message) do
-          routing_key 'persistentqueue'
+          routing_key 'kanina.message_spec.persistent_messages'
           persistent
         end
         result = nil
@@ -167,7 +167,7 @@ describe Kanina::Message do
         Kanina::Server.stop
         Kanina::Server.start
 
-        Kanina::Server.channel.queue('persistentqueue', durable: true).subscribe do |_, _, body|
+        Kanina::Server.channel.queue('kanina.message_spec.persistent_messages', durable: true).subscribe do |_, _, body|
           result = body
         end
 
@@ -178,12 +178,13 @@ describe Kanina::Message do
 
     context 'with persistence turned off' do
       it 'should make messages transient' do
-        # TODO: Fix this test so it reliably restarts RabbitMQ across all platforms!
+        # TODO: Fix this test so it reliably restarts RabbitMQ across all
+        # platforms, including TravisCI.
         skip "can fail when restarting RabbitMQ server."
-        Kanina::Server.channel.queue('transientqueue', durable: true)
+        Kanina::Server.channel.queue('kanina.message_spec.transient_messages', durable: true)
 
         dummy_class = Class.new(Kanina::Message) do
-          routing_key 'transientqueue'
+          routing_key 'kanina.message_spec.transient_messages'
           transient
         end
         result = nil
@@ -192,13 +193,14 @@ describe Kanina::Message do
         msg.deliver
 
         Kanina::Server.stop
+        sleep 1
         `rabbitmqctl stop_app`
+        sleep 1
         `rabbitmqctl start_app`
-        # `lunchy restart rabbitmq`
-        # sleep 3
+        sleep 1
         Kanina::Server.start
 
-        Kanina::Server.channel.queue('transientqueue', durable: true).subscribe do |_, _, body|
+        Kanina::Server.channel.queue('kanina.message_spec.transient_messages', durable: true).subscribe do |_, _, body|
           result = body
         end
 
