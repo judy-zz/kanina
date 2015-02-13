@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
 This is a Rails plugin that makes it easier for your models
 to communicate via AMQP to RabbitMQ.
 DESC
-  s.homepage      = 'https://github.com/judy/kanina'
+  s.homepage      = 'http://judy.github.io/kanina/'
   s.license       = 'ISC'
 
   s.files         = `git ls-files -z`.split("\x0")
