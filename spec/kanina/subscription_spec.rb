@@ -39,6 +39,13 @@ describe Kanina::Subscription do
       expect(result).to eql 'success'
     end
 
+    it 'sets up a durable exchange' do
+      Kanina::Subscription.subscribe bind: 'kanina.subscription_spec.binding_to_durable_exchange', durable: true do |_|
+      end
+
+      expect(`rabbitmqctl list_exchanges name durable`).to include("kanina.subscription_spec.binding_to_durable_exchange\ttrue")
+    end
+
     it 'sets up a binding to a named exchange' do
       result = nil
       Kanina::Subscription.subscribe bind: 'kanina.subscription_spec.binding_to_named_exchange' do |data|
