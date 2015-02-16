@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v0.6.2
+------
+- Make exchanges durable when subscribing to durable queues.
+
 v0.6.1
 ------
 - Complete project rename! Once "Hare", now called "Kanina".

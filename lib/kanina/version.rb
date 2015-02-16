@@ -4,5 +4,5 @@
 # backward compatibility, and major numbers are only bumped when introducing
 # major API changes that break backward compatibility.
 module Kanina
-  VERSION = '0.6.1'
+  VERSION = '0.6.2'
 end
