@@ -131,7 +131,7 @@ module Kanina
           fail 'Routing key must be set when using default exchange.'
         end
       else
-        exchange.publish(json, routing_key: routing_key)
+        exchange.publish(json, routing_key: routing_key, persistent: @persistent)
       end
     end
   end
