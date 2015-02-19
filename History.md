@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v0.7.0
+- Set queues as durable via the routing key.
+- Make messages persistable with named exchanges.
+
 v0.6.2
 ------
 - Make exchanges durable when subscribing to durable queues.
