@@ -51,9 +51,9 @@ module Kanina
       #   Verifies that the queue exists or is created, and sets the routing key to it.
       #   @param name [String] the routing key
       #   @return [String] the routing key
-      def routing_key(name = nil)
+      def routing_key(name = nil, durable: false)
         if name.present?
-          verify_queue(name)
+          verify_queue(name, durable: durable)
           @routing_key = name
         else
           @routing_key
@@ -77,8 +77,11 @@ module Kanina
       # Creates the queue, or grabs the queue that already exists. Note that if
       # the queue already exists, it must exist with the same parameters (like durability),
       # or the Bunny gem is very unhappy.
-      def verify_queue(routing_key)
-        Kanina::Server.channel.queue(routing_key)
+      # @param routing_key [String] the routing key
+      # @param durable [Boolean] whether the queue should be durable or not
+      # @return [Bunny::Queue] the queue
+      def verify_queue(routing_key, durable: false)
+        Kanina::Server.channel.queue(routing_key, durable: durable)
       end
     end
 
