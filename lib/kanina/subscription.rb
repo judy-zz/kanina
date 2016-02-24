@@ -33,9 +33,9 @@ module Kanina
       # @param durable [Boolean] Optional, whether to make the queue and exchange durable.
       # @yieldparam data [HashWithIndifferentAccess] The payload of the message,
       #    automatically turned into a hash.
-      def subscribe(queue:'', bind:nil, durable:false, &blk)
+      def subscribe(queue:'', bind:nil, durable:false, routing_key: '#', &blk)
         create_queue(queue, durable: durable)
-        create_binding(bind, durable: durable)
+        create_binding(bind, durable: durable, routing_key: routing_key)
         @queue.subscribe do |delivery_info, properties, body|
           yield format_data(body)
         end
@@ -54,10 +54,10 @@ module Kanina
       # Ensures the named exchange exists, and binds the queue to it.
       # @param name [String] The name of the exchange to bind the queue to.
       # @param durable [Boolean] Optional, whether to make the exchange durable.
-      def create_binding(name, durable: false)
+      def create_binding(name, durable: false, routing_key: '#')
         if name.present?
           ensure_exchange_exists(name, durable: durable)
-          @queue.bind(name)
+          @queue.bind(name, routing_key: routing_key)
         end
       end
 
