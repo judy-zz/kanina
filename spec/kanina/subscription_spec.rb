@@ -60,5 +60,29 @@ describe Kanina::Subscription do
       sleep(0.1)
       expect(result).to eql 'success'
     end
+
+    it 'can bind with a routing_key' do
+      result = nil
+
+      exchange_name = 'kanina.subscription_spec.routing_key_exchange'
+      topic = Kanina::Server.channel.topic(exchange_name)
+
+      Kanina::Subscription.subscribe bind: exchange_name, routing_key: 'should.be.*' do |data|
+        result = data[:string]
+      end
+
+      topic.publish(
+        { string: 'success' }.to_json,
+        { routing_key: 'should.be.received' }
+      )
+
+      topic.publish(
+        { string: 'failure' }.to_json,
+        { routing_key: 'should.not_be.received' }
+      )
+
+      sleep(0.1)
+      expect(result).to eql 'success'
+    end
   end
 end
